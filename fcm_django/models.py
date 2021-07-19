@@ -23,7 +23,7 @@ class Device(models.Model):
         help_text=_("Inactive devices will not be sent notifications"),
     )
     user = models.ForeignKey(
-        SETTINGS["USER_MODEL"], blank=True, null=True, on_delete=models.CASCADE
+        to='users.User', blank=True, null=True, on_delete=models.CASCADE
     )
     date_created = models.DateTimeField(
         verbose_name=_("Creation date"), auto_now_add=True, null=True
