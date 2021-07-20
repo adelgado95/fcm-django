@@ -265,6 +265,19 @@ class AbstractFCMDevice(Device):
     )
     registration_id = models.TextField(verbose_name=_("Registration token"))
     type = models.CharField(choices=DEVICE_TYPES, max_length=10)
+    phone = models.CharField('Telefono', max_length=100, db_index=True, null=True, blank=True)
+    app_code = models.CharField(max_length=20, verbose_name='Código de versión',null=True, blank=True)
+    app_version = models.CharField(max_length=20, verbose_name='Número de versión',null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+    country = models.ForeignKey('countries.Country', null=True,on_delete=models.SET_NULL, verbose_name='País')
+    model = models.CharField(null=True, blank=True, max_length=20)
+    platform = models.CharField(null=True, blank=True, max_length=20)
+    manufacturer = models.CharField(null=True, blank=True, max_length=20)
+    os_version = models.CharField(null=True, blank=True, max_length=20)
+    installation_count = models.IntegerField(default=0)
+
     objects: "FCMDeviceQuerySet" = FCMDeviceManager()
 
     class Meta:
